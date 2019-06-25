@@ -2,13 +2,13 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: fresh-customer
+  name: fresh-videoshop
   namespace: videoshop
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: fresh-customer
+      app: fresh-videoshop
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -17,48 +17,44 @@ spec:
   template:
     metadata:
       labels:
-        app: fresh-customer
+        app: fresh-videoshop
     spec:
       containers:
       - name: fresh-customer
         image: lastiverse/fresh-customer:0.0.1
         imagePullPolicy: Always
+      - name: fresh-point
+        image: lastiverse/fresh-point:0.0.1
+        imagePullPolicy: Always
+      - name: fresh-rent
+        image: lastiverse/fresh-rent:0.0.1
+        imagePullPolicy: Always
+      - name: fresh-video
+        image: lastiverse/fresh-video:0.0.1
+        imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: zmon-admin
-  namespace: zmon
+  name: fresh-videoshop
+  namespace: videoshop
   labels:
-    app: zmon-admin
+    app: fresh-videoshop
 spec:
   ports:
-  - name: tcp-80
-    port: 80
-    targetPort: 80
+  - name: tcp-11001
+    port: 11001
+    targetPort: 11001
+  - name: tcp-11002
+    port: 11002
+    targetPort: 11002
+  - name: tcp-11003
+    port: 11003
+    targetPort: 11003
+  - name: tcp-11004
+    port: 11004
+    targetPort: 11004
   selector:
-    app: zmon-admin
-  type: ClusterIP
+    app: fresh-videoshop
+  type: LoadBalancer
 ---
-apiVersion: v1
-kind: Secret
-metadata:
-  name: zmon-admin-secret
-  namespace: zmon
-data:
-  INFLUXDB_HOST: "__INFLUXDB_HOST__"
-  INFLUXDB_PORT: "__INFLUXDB_PORT__"
-  INFLUXDB_USERNAME: "__INFLUXDB_USERNAME__"
-  INFLUXDB_PASSWORD: "__INFLUXDB_PASSWORD__"
-  USERNAME: "__USERNAME__"
-  PASSWORD: "__PASSWORD__"
-  AUTH_TOKEN: "__AUTH_TOKEN__"
-  MYSQL_HOST: "__MYSQL_HOST__"
-  MYSQL_PORT: "__MYSQL_PORT__"
-  MYSQL_USERNAME: "__MYSQL_USERNAME__"
-  MYSQL_PASSWORD: "__MYSQL_PASSWORD__"
-  MYSQL_DATABASE: "__MYSQL_DATABASE__"
-  ZMON_PROVISIONING_ENDPOINT: "__ZMON_PROVISIONING_ENDPOINT__"
-  TELEGRAF_MANAGER_ENDPOINT: "__TELEGRAF_MANAGER_ENDPOINT__"
-  ELASTICAPM_SECRET_TOKEN: "__ELASTICAPM_SECRET_TOKEN__"
-  ELASTICAPM_SERVER_URL: "__ELASTICAPM_SERVER_URL__"
