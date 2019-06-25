@@ -28,7 +28,7 @@ public class SwaggerConfig {
 	
 	public ApiInfo getApiInfo() {
 		return new ApiInfoBuilder()
-				.title("Product Service")
+				.title("Video Service")
 				.description("This pages documents Product Restful Web Service endpoints")
 				.version("0.1")
 				.build();
