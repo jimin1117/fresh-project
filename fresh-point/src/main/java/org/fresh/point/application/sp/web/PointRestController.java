@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiImplicitParam;
@@ -25,8 +24,7 @@ public class PointRestController {
 	// 포인트 생성
 	@PostMapping
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = "req", value = "추가할 대상 고객의 id와 point", required = true, paramType = "body", dataType = "RegisterPointDTO")
-	})
+			@ApiImplicitParam(name = "req", value = "추가할 대상 고객의 id와 point", required = true, paramType = "body", dataType = "RegisterPointDTO") })
 	public Point register(@RequestBody RegisterPointDTO req) {
 		Point point = new Point();
 		point.setCustomerId(req.getCustomerId());
