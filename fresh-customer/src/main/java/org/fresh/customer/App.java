@@ -26,29 +26,21 @@ public class App {
 		};
 	}
 	
-public void insertCustomers(CustomerRepository customerRepository) {
+	public void insertCustomers(CustomerRepository customerRepository) {
 		
 		Customer customer1 = new Customer("홍길동", "010-1234-2345","hong@sk.com");
 		customerRepository.save(customer1);
-		Customer customer2 = new Customer("임꺽정", "010-1234-2345","im@sk.com");
+		Customer customer2 = new Customer("임꺽정", "010-2233-1123","im@google.com");
 		customerRepository.save(customer2);
-		Customer customer3 = new Customer("이지민", "010-1234-2345","jimin@sk.com");
+		Customer customer3 = new Customer("박지성", "010-5432-5567","park@naver.com");
 		customerRepository.save(customer3);
+		Customer customer4 = new Customer("전지현", "010-7786-8753","jun@daum.net");
+		customerRepository.save(customer4);
+		Customer customer5 = new Customer("유재석", "010-4745-4478","yoo@nate.com");
+		customerRepository.save(customer5);
 		
 		
 	}
-	
-//	public void displayAccounts(AccountRepository accountRepository) {
-//		System.out.println("***************************************************************");
-//		
-//		Iterable<Account> accountList = accountRepository.findAll();
-//		for(Account account : accountList) {
-//			System.out.println(account.toString());	
-//		}
-//		
-//		System.out.println("***************************************************************");
-//	}
-//	
-	
+
 }
 
