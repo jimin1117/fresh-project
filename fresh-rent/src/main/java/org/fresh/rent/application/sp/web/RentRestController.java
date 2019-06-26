@@ -19,13 +19,12 @@ public class RentRestController {
 	RentService rentService;
 
 	@PostMapping("/")
-	public Rent rentVideo(@RequestBody RentVideoRequest req) {
+	public Rent rentVideo(@RequestBody RentVideoRequest req) throws VideoAlreadyRentedException, CustomerHasNotEnoughMoneyException {
 		return rentService.rentVideo(req.getVideoId(), req.getCustomerId());
 	}
 
-	public Rent returnVideo(Long videoId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Rent returnVideo(Long id) {
+		return rentService.returnVideo(id);
 	}
 
 	@Data

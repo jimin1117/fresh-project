@@ -4,8 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 
-import org.fresh.shared.base.AbstractEntity;
-import org.fresh.shared.base.AggregateRoot;
+import org.fresh.rent.base.AbstractEntity;
+import org.fresh.rent.base.AggregateRoot;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
