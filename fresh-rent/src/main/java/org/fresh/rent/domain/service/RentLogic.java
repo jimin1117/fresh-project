@@ -8,8 +8,11 @@ import org.fresh.rent.domain.model.StatusType;
 import org.fresh.rent.domain.repository.RentRepository;
 import org.fresh.rent.exception.CustomerHasNotEnoughMoneyException;
 import org.fresh.rent.exception.VideoAlreadyRentedException;
+import org.fresh.rent.exception.VideoNotFoundException;
 import org.fresh.rent.proxy.feign.PointProxy;
+import org.fresh.rent.proxy.feign.VideoProxy;
 import org.fresh.rent.proxy.feign.dto.point.Point;
+import org.fresh.rent.proxy.feign.dto.point.Video;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +24,16 @@ public class RentLogic implements RentService {
 	@Autowired
 	private PointProxy pointProxy;
 	
+	@Autowired
+	private VideoProxy videoProxy;
+	
 	@Override
-	public Rent rentVideo(Long videoId, Long customerId) throws VideoAlreadyRentedException, CustomerHasNotEnoughMoneyException {
+	public Rent rentVideo(Long videoId, Long customerId) throws VideoAlreadyRentedException, CustomerHasNotEnoughMoneyException, VideoNotFoundException {
 		Long amount = 100L;
+		
+		if (!isVideoExist(videoId)) {
+			throw new VideoNotFoundException();
+		}
 		
 		if (isVideoRentable(videoId)) {
 			throw new VideoAlreadyRentedException();
@@ -47,6 +57,11 @@ public class RentLogic implements RentService {
 		rent.setStatus(StatusType.AVAILABLE);
 		rentRepository.save(rent);
 		return rent;
+	}
+	
+	protected boolean isVideoExist(Long videoId) {
+		Video video = videoProxy.getVideo(videoId);
+		return video != null;
 	}
 	
 	protected boolean isVideoRentable(Long videoId) {
