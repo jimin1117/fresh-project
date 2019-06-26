@@ -11,7 +11,9 @@ import org.fresh.rent.exception.VideoAlreadyRentedException;
 import org.fresh.rent.proxy.feign.PointProxy;
 import org.fresh.rent.proxy.feign.dto.point.Point;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RentLogic implements RentService {
 	@Autowired
 	private RentRepository rentRepository;
