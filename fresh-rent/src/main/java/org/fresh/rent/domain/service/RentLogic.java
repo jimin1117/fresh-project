@@ -9,6 +9,7 @@ import org.fresh.rent.domain.repository.RentRepository;
 import org.fresh.rent.exception.CustomerHasNotEnoughMoneyException;
 import org.fresh.rent.exception.VideoAlreadyRentedException;
 import org.fresh.rent.proxy.feign.PointProxy;
+import org.fresh.rent.proxy.feign.dto.point.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class RentLogic implements RentService {
@@ -19,7 +20,7 @@ public class RentLogic implements RentService {
 	private PointProxy pointProxy;
 	
 	@Override
-	public void rentVideo(Long videoId, Long customerId) throws VideoAlreadyRentedException, CustomerHasNotEnoughMoneyException {
+	public Rent rentVideo(Long videoId, Long customerId) throws VideoAlreadyRentedException, CustomerHasNotEnoughMoneyException {
 		Long amount = 100L;
 		
 		if (isVideoRentable(videoId)) {
@@ -34,11 +35,16 @@ public class RentLogic implements RentService {
 		
 		Rent rent = new Rent(videoId, customerId, new Date(), null, StatusType.RENTED);
 		rentRepository.save(rent);
+		return rent;
 	}
 
 	@Override
-	public void returnVideo(Long videoId) {
-		
+	public Rent returnVideo(Long id) {
+		Rent rent = rentRepository.findOne(id);
+		rent.setReturnDate(new Date());
+		rent.setStatus(StatusType.AVAILABLE);
+		rentRepository.save(rent);
+		return rent;
 	}
 	
 	protected boolean isVideoRentable(Long videoId) {
@@ -47,11 +53,12 @@ public class RentLogic implements RentService {
 	}
 	
 	protected boolean isCustomerHasEnoughPoint(Long customerId, Long amount) {
-		Long existingAmount = pointProxy.getAmount(customerId);
-		return existingAmount > amount;
+		Point point = pointProxy.getPointByCustomerId(customerId);
+		return point.getAmount() > amount;
 	}
 	
 	protected void decreaseCustomerPoint(Long customerId, Long amount) {
-		Long amount = pointProxy.getAmount(customerId);
+		Point point = pointProxy.getPointByCustomerId(customerId);
+		pointProxy.changePointAmount(point.getId(), point.getAmount() - amount);
 	}
 }

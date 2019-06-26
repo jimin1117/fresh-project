@@ -1,5 +1,6 @@
 package org.fresh.rent.proxy.feign;
 
+import org.fresh.rent.proxy.feign.dto.point.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.cloud.netflix.feign.FeignClientProperties.FeignClientConfiguration;
@@ -16,12 +17,12 @@ public class PointProxy {
 	@Autowired
 	private PointClient pointClient;
 	
-	public void changePointAmount(Long customerId, Long amount) {
-		pointClient.changePointAmount(customerId, amount);
+	public void changePointAmount(Long id, Long amount) {
+		pointClient.changePointAmount(id, amount);
 	}
 	
-	public Long getAmount(Long customerId) {
-		return pointClient.getAmount(customerId).getContent();
+	public Point getPointByCustomerId(Long customerId) {
+		return pointClient.getPointByCustomerId(customerId).getContent();
 	}
 	
 	@FeignClient(name="point", url= "http://localhost:11002", configuration=FeignClientConfiguration.class)
@@ -29,7 +30,7 @@ public class PointProxy {
 		@PutMapping("point/{id}")
 		void changePointAmount(@PathVariable("id") Long id, @RequestBody Long amount);
 		
-		@GetMapping("point/{id}") 
-		Resource<Long> getAmount(@PathVariable("id") Long id);
+		@GetMapping("point/user/{customerId}") 
+		Resource<Point> getPointByCustomerId(@PathVariable("customerId") Long customerId);
 	}
 }
