@@ -26,15 +26,15 @@ public class App {
 	
 	public void insertPoint(PointRepository pointRepository) {
 		
-		Point point1 = new Point(1, 10000);
+		Point point1 = new Point(1, 100);
 		pointRepository.save(point1);
-		Point point2 = new Point(2, 10000);
+		Point point2 = new Point(2, 100);
 		pointRepository.save(point2);
-		Point point3 = new Point(3, 10000);
+		Point point3 = new Point(3, 100);
 		pointRepository.save(point3);
-		Point point4 = new Point(4, 10000);
+		Point point4 = new Point(4, 100);
 		pointRepository.save(point4);
-		Point point5 = new Point(5, 10000);
+		Point point5 = new Point(5, 100);
 		pointRepository.save(point5);
 		
 		
