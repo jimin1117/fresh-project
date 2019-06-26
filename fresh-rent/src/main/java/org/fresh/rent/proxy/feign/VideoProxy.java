@@ -22,7 +22,7 @@ public class VideoProxy {
 		return resource.getContent();
 	}
 
-	@FeignClient(name = "video", url = "http://fresh-video:videoshop:11004", configuration = FeignClientConfiguration.class)
+	@FeignClient(name = "video", url = "http://fresh-video.videoshop:11004", configuration = FeignClientConfiguration.class)
 	interface VideoClient {
 		@GetMapping("v1/video/{id}")
 		Resource<Video> getVideo(@PathVariable("id") Long id);
