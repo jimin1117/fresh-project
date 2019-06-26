@@ -2,9 +2,8 @@ package org.fresh.video.domain.model;
 
 import javax.persistence.Entity;
 
-import org.fresh.shared.base.AbstractEntity;
-import org.fresh.shared.base.AggregateRoot;
-
+import org.fresh.video.base.AbstractEntity;
+import org.fresh.video.base.AggregateRoot;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,12 +12,11 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=true)
 @Entity
 public class Video extends AbstractEntity implements AggregateRoot  {
-  private long id;
+  
   private String title;
   private String desc;
   
-  public Video(long id,String title,String desc) {
-	  this.id = id;
+  public Video(String title,String desc) {
 	  this.title = title;
 	  this.desc = desc;
   }
