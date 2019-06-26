@@ -21,16 +21,16 @@ spec:
     spec:
       containers:
       - name: fresh-customer
-        image: lastiverse/fresh-customer:0.0.1
+        image: lastiverse/fresh-customer:0.0.2
         imagePullPolicy: Always
       - name: fresh-point
-        image: lastiverse/fresh-point:0.0.1
+        image: lastiverse/fresh-point:0.0.2
         imagePullPolicy: Always
       - name: fresh-rent
-        image: lastiverse/fresh-rent:0.0.1
+        image: lastiverse/fresh-rent:0.0.2
         imagePullPolicy: Always
       - name: fresh-video
-        image: lastiverse/fresh-video:0.0.1
+        image: lastiverse/fresh-video:0.0.2
         imagePullPolicy: Always
 ---
 apiVersion: v1
