@@ -2,13 +2,13 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: fresh-videoshop
+  name: fresh-customer
   namespace: videoshop
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: fresh-videoshop
+      app: fresh-customer
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -17,18 +17,84 @@ spec:
   template:
     metadata:
       labels:
-        app: fresh-videoshop
+        app: fresh-customer
     spec:
       containers:
       - name: fresh-customer
         image: lastiverse/fresh-customer:0.0.2
         imagePullPolicy: Always
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: fresh-point
+  namespace: videoshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fresh-point
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: fresh-point
+    spec:
+      containers:
       - name: fresh-point
         image: lastiverse/fresh-point:0.0.2
         imagePullPolicy: Always
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: fresh-rent
+  namespace: videoshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fresh-rent
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: fresh-rent
+    spec:
+      containers:
       - name: fresh-rent
         image: lastiverse/fresh-rent:0.0.2
         imagePullPolicy: Always
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: fresh-video
+  namespace: videoshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fresh-video
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: fresh-video
+    spec:
+      containers:
       - name: fresh-video
         image: lastiverse/fresh-video:0.0.2
         imagePullPolicy: Always
@@ -36,25 +102,64 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: fresh-videoshop
+  name: fresh-customer
   namespace: videoshop
   labels:
-    app: fresh-videoshop
+    app: fresh-customer
 spec:
   ports:
   - name: tcp-11001
     port: 11001
     targetPort: 11001
+  selector:
+    app: fresh-customer
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fresh-point
+  namespace: videoshop
+  labels:
+    app: fresh-point
+spec:
+  ports:
   - name: tcp-11002
     port: 11002
     targetPort: 11002
+  selector:
+    app: fresh-point
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fresh-rent
+  namespace: videoshop
+  labels:
+    app: fresh-rent
+spec:
+  ports:
   - name: tcp-11003
     port: 11003
     targetPort: 11003
+  selector:
+    app: fresh-rent
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fresh-video
+  namespace: videoshop
+  labels:
+    app: fresh-video
+spec:
+  ports:
   - name: tcp-11004
     port: 11004
     targetPort: 11004
   selector:
-    app: fresh-videoshop
+    app: fresh-video
   type: LoadBalancer
 ---

@@ -25,7 +25,7 @@ public class PointProxy {
 		return resource.getContent();
 	}
 
-	@FeignClient(name = "point", url = "http://localhost:11002", configuration = FeignClientConfiguration.class)
+	@FeignClient(name = "point", url = "http://fresh-point.videoshop:11002", configuration = FeignClientConfiguration.class)
 	interface PointClient {
 		@PutMapping("v1/point/user/{customerId}")
 		Resource<Point> update(@PathVariable("customerId") Long customerId, @RequestBody Long amount);
