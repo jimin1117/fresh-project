@@ -21,8 +21,7 @@ public class App {
 	public CommandLineRunner execSampleCode(CustomerRepository customerRepository) {	
 		return (args) -> {
 			insertCustomers(customerRepository);
-			//displayAccounts(accountRepository);
-			
+					
 			//executeExample1(accountRepository);
 		};
 	}
