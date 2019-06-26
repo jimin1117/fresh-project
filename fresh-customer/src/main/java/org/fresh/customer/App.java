@@ -10,6 +10,17 @@ public class App {
 
 	public static void main(String[] args) {
 		SpringApplication.run(App.class, args);
+		System.out.println("Hello World!");
 	}
+	
+//	@Bean
+//	public CommandLineRunner execSampleCode(AccountRepository accountRepository) {	
+//		return (args) -> {
+//			insertAccounts(accountRepository);
+//			displayAccounts(accountRepository);
+//			
+//			executeExample1(accountRepository);
+//		};
+//	}
 }
 
