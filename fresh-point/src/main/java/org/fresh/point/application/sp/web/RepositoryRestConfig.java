@@ -19,4 +19,5 @@ public class RepositoryRestConfig extends RepositoryRestConfigurerAdapter {
 		config.exposeIdsFor(entityManager.getMetamodel().getEntities().stream().map(e -> e.getJavaType())
 				.collect(Collectors.toList()).toArray(new Class[0]));
 	}
+
 }
