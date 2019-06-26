@@ -5,14 +5,13 @@ import java.util.List;
 import org.fresh.point.domain.model.Point;
 
 
-public interface PointService {
 
+
+public interface PointService {
+	
+	Point register(Point point);
 	Point findByCustomerId(Long customerId);
-	List<Point> findAll();
-	
-	Point resister(Point Point);
-	
-	
-	
+	Point update(Long id, Long amount);
+	//List<Point> findAll();
 	
 }
