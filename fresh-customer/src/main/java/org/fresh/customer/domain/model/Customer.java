@@ -2,8 +2,8 @@ package org.fresh.customer.domain.model;
 
 import javax.persistence.Entity;
 
-import org.fresh.shared.base.AbstractEntity;
-import org.fresh.shared.base.AggregateRoot;
+import org.fresh.customer.base.AbstractEntity;
+import org.fresh.customer.base.AggregateRoot;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,7 +12,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=true)
 @Entity
 public class Customer extends AbstractEntity implements AggregateRoot {
-	private Long id;
 	private String name; 
 	private String mobile;
 	private String email;
