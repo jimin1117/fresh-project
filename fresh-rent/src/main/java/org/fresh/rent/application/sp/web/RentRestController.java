@@ -2,6 +2,7 @@ package org.fresh.rent.application.sp.web;
 
 import org.fresh.rent.domain.model.Rent;
 import org.fresh.rent.domain.service.RentService;
+import org.fresh.rent.dto.RentVideoDTO;
 import org.fresh.rent.exception.CustomerHasNotEnoughMoneyException;
 import org.fresh.rent.exception.VideoAlreadyRentedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,20 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 @RestController
-@RequestMapping("/rent")
+@RequestMapping("/v1/rent")
 public class RentRestController {
 	@Autowired 
 	RentService rentService;
 
 	@PostMapping("/")
     @ApiImplicitParams({ 
-    	@ApiImplicitParam(name = "req", value = "대여할 대상 비디오의 id와 고객의 id 전달", required = true, paramType="body", dataType = "RentVideoRequest")
+    	@ApiImplicitParam(name = "req", value = "대여할 대상 비디오의 id와 고객의 id 전달", required = true, paramType="body", dataType = "RentVideoDTO")
     })
-	public Rent rentVideo(@RequestBody RentVideoRequest req) throws VideoAlreadyRentedException, CustomerHasNotEnoughMoneyException {
+	public Rent rentVideo(@RequestBody RentVideoDTO req) throws VideoAlreadyRentedException, CustomerHasNotEnoughMoneyException {
 		return rentService.rentVideo(req.getVideoId(), req.getCustomerId());
 	}
 
@@ -37,11 +37,5 @@ public class RentRestController {
     })
 	public Rent returnVideo(@PathVariable("id") Long id) {
 		return rentService.returnVideo(id);
-	}
-
-	@Data
-	public class RentVideoRequest {
-		private Long videoId;
-		private Long customerId;
 	}
 }

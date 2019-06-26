@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Service
 @FeignClient(name="point", url= "http://localhost:11002", configuration=FeignClientConfiguration.class)
 interface PointClient {
-	@PutMapping("point/{id}")
+	@PutMapping("v1/point/{id}")
 	void changePointAmount(@PathVariable("id") Long id, @RequestBody Long amount);
 	
-	@GetMapping("point/user/{customerId}") 
+	@GetMapping("v1/point/user/{customerId}") 
 	Resource<Point> getPointByCustomerId(@PathVariable("customerId") Long customerId);
 }
