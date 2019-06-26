@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/v1/points")
+@RequestMapping("/v1/point")
 public class PointRestController implements PointService {
 	@Autowired
 	private PointService pointService;
