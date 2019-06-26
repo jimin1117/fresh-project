@@ -16,6 +16,10 @@ public class Point extends AbstractEntity implements AggregateRoot {
 	private long customerId;
 	private long amount;	
 	
+	public Point(long customerId, long amount) {
+		this.customerId = customerId;
+		this.amount = amount;
 
+	}
 	
 }
