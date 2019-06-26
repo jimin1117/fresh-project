@@ -26,9 +26,7 @@ public class PointRestController {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "req", value = "추가할 대상 고객의 id와 point", required = true, paramType = "body", dataType = "RegisterPointDTO") })
 	public Point register(@RequestBody RegisterPointDTO req) {
-		Point point = new Point();
-		point.setCustomerId(req.getCustomerId());
-		point.setAmount(req.getAmount());
+		Point point = new Point(req.getCustomerId(), req.getAmount());
 
 		return pointService.register(point);
 	}
