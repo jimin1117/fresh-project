@@ -35,11 +35,11 @@ public class RentLogic implements RentService {
 			throw new VideoNotFoundException();
 		}
 		
-		if (isVideoRentable(videoId)) {
+		if (!isVideoRentable(videoId)) {
 			throw new VideoAlreadyRentedException();
 		}
 		
-		if (isCustomerHasEnoughPoint(customerId, amount)) {
+		if (!isCustomerHasEnoughPoint(customerId, amount)) {
 			throw new CustomerHasNotEnoughMoneyException();
 		}
 		
@@ -75,7 +75,6 @@ public class RentLogic implements RentService {
 	}
 	
 	protected void decreaseCustomerPoint(Long customerId, Long amount) {
-		Point point = pointProxy.getPointByCustomerId(customerId);
-		pointProxy.changePointAmount(point.getId(), point.getAmount() - amount);
+		pointProxy.changePointAmount(customerId, -amount);
 	}
 }

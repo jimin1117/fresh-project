@@ -11,7 +11,7 @@ public interface PointService {
 	
 	Point register(Point point);
 	Point findByCustomerId(Long customerId);
-	Point update(Long id, Long amount);
+	Point update(Long customerId, Long amount);
 	//List<Point> findAll();
 	
 }

@@ -16,26 +16,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
-import lombok.Data;
 
 @RestController
 @RequestMapping("/v1/rent")
 public class RentRestController {
-	@Autowired 
+	@Autowired
 	RentService rentService;
 
 	@PostMapping("/")
-    @ApiImplicitParams({ 
-    	@ApiImplicitParam(name = "req", value = "대여할 대상 비디오의 id와 고객의 id 전달", required = true, paramType="body", dataType = "RentVideoDTO")
-    })
-	public Rent rentVideo(@RequestBody RentVideoDTO req) throws VideoAlreadyRentedException, CustomerHasNotEnoughMoneyException, VideoNotFoundException {
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "req", value = "대여할 대상 비디오의 id와 고객의 id 전달", required = true, paramType = "body", dataType = "RentVideoDTO")
+	})
+	public Rent rentVideo(@RequestBody RentVideoDTO req)
+			throws VideoAlreadyRentedException, CustomerHasNotEnoughMoneyException, VideoNotFoundException {
 		return rentService.rentVideo(req.getVideoId(), req.getCustomerId());
 	}
 
 	@PutMapping("/{id}")
-    @ApiImplicitParams({ 
-    	@ApiImplicitParam(name = "id", value = "반납할 대상 비디오의 id", required = true)
-    })
+	@ApiImplicitParams({ @ApiImplicitParam(name = "id", value = "반납할 대상 비디오의 id", required = true) })
 	public Rent returnVideo(@PathVariable("id") Long id) {
 		return rentService.returnVideo(id);
 	}

@@ -24,13 +24,13 @@ public class PointLogic implements PointService {
 	@Override
 	@Transactional(readOnly=true)
 	public Point findByCustomerId(Long customerId){
-		return pointRepository.findOne(customerId);
+		return pointRepository.findByCustomerId(customerId);
 	}
 	
 	@Override
 	@Transactional
-	public Point update(Long id, Long amount) {
-		Point point = pointRepository.findOne(id);
+	public Point update(Long customerId, Long amount) {
+		Point point = pointRepository.findByCustomerId(customerId);
 		
 		System.out.println("========point" + point );
 		

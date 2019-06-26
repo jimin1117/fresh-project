@@ -16,18 +16,19 @@ public class PointProxy {
 	@Autowired
 	private PointClient pointClient;
 
-	public void changePointAmount(Long id, Long amount) {
-		pointClient.changePointAmount(id, amount);
-	}
-
+	public void changePointAmount(Long customerId, Long amount) {
+		pointClient.update(customerId, amount);
+	} 
 	public Point getPointByCustomerId(Long customerId) {
-		return pointClient.getPointByCustomerId(customerId).getContent();
+		Resource<Point> resource = pointClient.getPointByCustomerId(customerId);
+		System.out.println("resource id: " + resource.getId());
+		return resource.getContent();
 	}
 
 	@FeignClient(name = "point", url = "http://localhost:11002", configuration = FeignClientConfiguration.class)
 	interface PointClient {
-		@PutMapping("v1/point/{id}")
-		void changePointAmount(@PathVariable("id") Long id, @RequestBody Long amount);
+		@PutMapping("v1/point/user/{customerId}")
+		Resource<Point> update(@PathVariable("customerId") Long customerId, @RequestBody Long amount);
 
 		@GetMapping("v1/point/user/{customerId}")
 		Resource<Point> getPointByCustomerId(@PathVariable("customerId") Long customerId);

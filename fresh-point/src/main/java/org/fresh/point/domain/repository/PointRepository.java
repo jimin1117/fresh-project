@@ -12,6 +12,5 @@ public interface PointRepository extends PagingAndSortingRepository<Point, Long>
 QueryDslPredicateExecutor<Point> {
 	
 	List<Point> findAll();
-
-
+	Point findByCustomerId(Long customerId);
 }
