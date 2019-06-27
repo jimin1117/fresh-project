@@ -71,7 +71,7 @@ public class RentLogic implements RentService {
 	
 	protected boolean isCustomerHasEnoughPoint(Long customerId, Long amount) {
 		Point point = pointProxy.getPointByCustomerId(customerId);
-		return point.getAmount() > amount;
+		return point.getAmount() >= amount;
 	}
 	
 	protected void decreaseCustomerPoint(Long customerId, Long amount) {
