@@ -7,4 +7,3 @@ video rental management system
 - http://a62664a8e97f711e9a9a80a553d5ea75-162569714.ap-northeast-2.elb.amazonaws.com:11003/swagger-ui.html
 - http://a6270295c97f711e9a9a80a553d5ea75-1736245525.ap-northeast-2.elb.amazonaws.com:11004/swagger-ui.html
 
-- datasource: jdbc:h2:mem:customer
