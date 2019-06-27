@@ -24,7 +24,8 @@ public class PointRestController {
 	// 포인트 생성
 	@PostMapping
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "req", value = "추가할 대상 고객의 id와 point", required = true, paramType = "body", dataType = "RegisterPointDTO") })
+			@ApiImplicitParam(name = "req", value = "추가할 대상 고객의 id와 point", required = true, paramType = "body", dataType = "RegisterPointDTO")
+		})
 	public Point register(@RequestBody RegisterPointDTO req) {
 		Point point = new Point(req.getCustomerId(), req.getAmount());
 
@@ -36,6 +37,10 @@ public class PointRestController {
 		return pointService.findByCustomerId(customerId);
 	}
 
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "customerId", value = "추가할 대상 고객의 id", required = true, dataType = "long"),
+		@ApiImplicitParam(name = "amount", value = "추가할 point", required = true, dataType = "long")
+	})
 	@PutMapping("/user/{customerId}")
 	public Point update(@PathVariable("customerId") Long customerId, @RequestBody Long amount) {
 		return pointService.update(customerId, amount);
